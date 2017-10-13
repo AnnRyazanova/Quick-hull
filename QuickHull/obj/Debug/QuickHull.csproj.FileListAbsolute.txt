@@ -1,0 +1,9 @@
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\bin\Debug\QuickHull.exe.config
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\bin\Debug\QuickHull.exe
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\bin\Debug\QuickHull.pdb
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.Form1.resources
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.Properties.Resources.resources
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.csproj.GenerateResource.Cache
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.exe
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.pdb
+D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.csprojResolveAssemblyReference.cache
