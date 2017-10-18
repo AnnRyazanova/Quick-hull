@@ -16,7 +16,7 @@ namespace QuickHull
         private Graphics graphics;
 
         private List<Point2D> points = new List<Point2D>();
-        private List<Point2D> vertex = new List<Point2D>();
+        private List<Point2D> vertex;
 
         private Point2D lastPoint;
 
@@ -83,13 +83,12 @@ namespace QuickHull
             pictureBox1.Invalidate();
         }
 
-
-
+        
+        // Находим самую левую и самую правую точки
         private void findLeftAndRightPoints(out Point2D left, out Point2D right)
         {
             left = right = points[0];
 
-            // Находим самую левую и самую правую точки
             for (int i = 0; i < points.Count; ++i)
             {
                 if (points[i].X < left.X)
@@ -100,10 +99,17 @@ namespace QuickHull
 
         }
 
-        private void findPointsAbove(Point2D left, Point2D right, out List<Point2D> above, out Point2D maxAbove, List<Point2D> ppoints)
+        // Находим все точки над ребром
+        // Флаг нужен для понимания, какую полуплоскость мы проверяем относительно первого ребра
+        private void findPointsAbove(Point2D left, Point2D right, out List<Point2D> above, out Point2D maxAbove, List<Point2D> ppoints, bool flag)
         {
             above = new List<Point2D>();
-            maxAbove = left;
+
+            if (flag)
+                maxAbove = (left.Y > right.Y) ? left : right;
+            else
+                maxAbove = (left.Y < right.Y) ? left : right;
+
 
             Edge edgeBetweenLeftAndRight = new Edge(left, right);
 
@@ -116,19 +122,16 @@ namespace QuickHull
                         // Точки над edge
                         above.Add(ppoints[i]);
                         // Находим максимально отдаленную вершину (если их несколько, то находим самую правую)
-                        if ((maxAbove.Y > ppoints[i].Y) || (maxAbove.Y == ppoints[i].Y && maxAbove.X < ppoints[i].X))
-                            maxAbove = ppoints[i];
-
-
-
-                        /* else
-                         {
-                             // Точки под edge
-                             underEdge.Add(points[i]);
-                             // Находим максимально отдаленную вершину (если их несколько, то находим самую правую)
-                             if ((maxUnder.Y < points[i].Y) || (maxUnder.Y == points[i].Y && maxUnder.X < points[i].X))
-                                 maxUnder = points[i];
-                         } */
+                        if (flag)
+                        {
+                            if ((maxAbove.Y > ppoints[i].Y) || (maxAbove.Y == ppoints[i].Y && maxAbove.X < ppoints[i].X))
+                                maxAbove = ppoints[i];
+                        }
+                        else
+                        {
+                            if ((maxAbove.Y < points[i].Y) || (maxAbove.Y == points[i].Y && maxAbove.X > points[i].X))
+                                maxAbove = points[i];
+                        }
 
                     }
                 }
@@ -136,62 +139,26 @@ namespace QuickHull
         }
 
 
-        private void findPointsUnder(Point2D left, Point2D right, out List<Point2D> under, out Point2D maxUnder, List<Point2D> ppoints)
-        {
-            under = new List<Point2D>();
-            maxUnder = right;
-
-            Edge edgeBetweenLeftAndRight = new Edge(left, right);
-
-            for (int i = 0; i < ppoints.Count; ++i)
-            {
-                if (ppoints[i] != left && ppoints[i] != right)
-                {
-                    if (edgeBetweenLeftAndRight.Distance(ppoints[i]) >= 0)
-                    {
-                        // Точки под edge
-                        under.Add(points[i]);
-                        // Находим максимально отдаленную вершину (если их несколько, то находим самую правую)
-                        if ((maxUnder.Y < points[i].Y) || (maxUnder.Y == points[i].Y && maxUnder.X < points[i].X))
-                            maxUnder = points[i];
-                    }
-                }
-            }
-        }
-
-
-        private void quickHullAbove(Point2D left, Point2D right, List<Point2D> p)
+        // left - левая точка ребра
+        // right - правая точка ребра
+        // p - точки, из которых будем выбирать те, что выше ребра
+        // flag - если true, то проверяем все то, что находится выше самого первого ребра, false - то, что ниже
+        private void quickHull(Point2D left, Point2D right, List<Point2D> p, bool flag)
         { 
             List<Point2D> aboveEdge;
             Point2D maxAbove;
 
-            findPointsAbove(left, right, out aboveEdge, out maxAbove, p);
+            findPointsAbove(left, right, out aboveEdge, out maxAbove, p, flag);
 
-            if (aboveEdge.Count != 0)
-            {
-                quickHullAbove(left, maxAbove, aboveEdge);
-                vertex.Add(maxAbove);
-                quickHullAbove(maxAbove, right, aboveEdge);
+            if (aboveEdge.Count == 0)
                 vertex.Add(right);
-            }
-        }
-
-
-        private void quickHullUnder(Point2D left, Point2D right, List<Point2D> p)
-        {
-            List<Point2D> underEdge;
-            Point2D maxUnder;
-
-            findPointsUnder(left, right, out underEdge, out maxUnder, p);
-
-            if (underEdge.Count != 0)
+            else     
             {
-                quickHullUnder(left, maxUnder, underEdge);
-                vertex.Add(maxUnder);
-                quickHullUnder(maxUnder, right, underEdge);
-                vertex.Add(left);
+                quickHull(left, maxAbove, aboveEdge, flag);
+                quickHull(maxAbove, right, aboveEdge, flag);
             }
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -199,12 +166,13 @@ namespace QuickHull
                 MessageBox.Show("Должно быть хотя бы 3 точки");
             else
             {
+                vertex = new List<Point2D>();
+
                 Point2D left, right;
                 findLeftAndRightPoints(out left, out right);
                 
-                
-                quickHullAbove(left, right, points);
-                quickHullUnder(left, right, points);
+                quickHull(left, right, points, true);
+                quickHull(right, left, points, false);
 
                 for (int i = 0; i < vertex.Count - 1; ++i)
                     (new Edge(vertex[i], vertex[i + 1])).Draw(graphics);
