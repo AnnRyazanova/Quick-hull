@@ -148,8 +148,8 @@ namespace QuickHull
             List<Point2D> aboveEdge;
             Point2D maxAbove;
 
-			(new Edge(left, right)).Draw(graphics);
-			pictureBox1.Refresh();
+			//(new Edge(left, right)).Draw(graphics);
+			//pictureBox1.Refresh();
 
 			findPointsAbove(left, right, out aboveEdge, out maxAbove, p, flag);
 
@@ -173,9 +173,7 @@ namespace QuickHull
 
                 Point2D left, right;
                 findLeftAndRightPoints(out left, out right);
-				(new Edge(left, right)).Draw(graphics);
-				pictureBox1.Refresh();
-
+				
 				quickHull(left, right, points, true);
                 quickHull(right, left, points, false);
 
