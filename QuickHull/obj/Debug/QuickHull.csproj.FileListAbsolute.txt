@@ -7,3 +7,12 @@ D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\
 D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.exe
 D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.pdb
 D:\MMCS\Учеба\7 семестр\Графика\Лабы\QuickHull\QuickHull\obj\Debug\QuickHull.csprojResolveAssemblyReference.cache
+D:\Ryazanova\QuickHull\QuickHull\bin\Debug\QuickHull.exe.config
+D:\Ryazanova\QuickHull\QuickHull\bin\Debug\QuickHull.exe
+D:\Ryazanova\QuickHull\QuickHull\bin\Debug\QuickHull.pdb
+D:\Ryazanova\QuickHull\QuickHull\obj\Debug\QuickHull.csprojResolveAssemblyReference.cache
+D:\Ryazanova\QuickHull\QuickHull\obj\Debug\QuickHull.Form1.resources
+D:\Ryazanova\QuickHull\QuickHull\obj\Debug\QuickHull.Properties.Resources.resources
+D:\Ryazanova\QuickHull\QuickHull\obj\Debug\QuickHull.csproj.GenerateResource.Cache
+D:\Ryazanova\QuickHull\QuickHull\obj\Debug\QuickHull.exe
+D:\Ryazanova\QuickHull\QuickHull\obj\Debug\QuickHull.pdb

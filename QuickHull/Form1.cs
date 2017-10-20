@@ -129,8 +129,8 @@ namespace QuickHull
                         }
                         else
                         {
-                            if ((maxAbove.Y < points[i].Y) || (maxAbove.Y == points[i].Y && maxAbove.X > points[i].X))
-                                maxAbove = points[i];
+                            if ((maxAbove.Y < ppoints[i].Y) || (maxAbove.Y == ppoints[i].Y && maxAbove.X > ppoints[i].X))
+                                maxAbove = ppoints[i];
                         }
 
                     }
@@ -148,7 +148,10 @@ namespace QuickHull
             List<Point2D> aboveEdge;
             Point2D maxAbove;
 
-            findPointsAbove(left, right, out aboveEdge, out maxAbove, p, flag);
+			(new Edge(left, right)).Draw(graphics);
+			pictureBox1.Refresh();
+
+			findPointsAbove(left, right, out aboveEdge, out maxAbove, p, flag);
 
             if (aboveEdge.Count == 0)
                 vertex.Add(right);
@@ -170,8 +173,10 @@ namespace QuickHull
 
                 Point2D left, right;
                 findLeftAndRightPoints(out left, out right);
-                
-                quickHull(left, right, points, true);
+				(new Edge(left, right)).Draw(graphics);
+				pictureBox1.Refresh();
+
+				quickHull(left, right, points, true);
                 quickHull(right, left, points, false);
 
                 for (int i = 0; i < vertex.Count - 1; ++i)
